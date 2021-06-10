@@ -108,4 +108,30 @@ class MainWindow(QMainWindow):
         if self.textedit1.toPlainText() == '':
             self.textedit2.clear()
 
-#new, save, separator
+"""
+    help
+    - zeigt die Hilfe und die aktuelle Version an
+    
+    say
+    - gleiche Aufgabe wie print("") in Python
+    - gibt einzelne Wörter aus
+    - gibt folgende Zeichen wieder (a-z, A-Z, 0-9, alle Zeichen außer Leerzeichen)
+    - wenn ein Leerzeichen benutzt wird, werden alle darauffolgenden Zeichen ignoriert
+    - z.B. say Hallo09
+    
+    make (=def)
+    
+    randomAnimal
+    - wählt ein zufaelliges Tier aus unserer Liste aus
+    - z.B. randomAnimal
+    
+    randomAnimal Tiername1,Tiername2,Tiername3,...
+    - wählt ein zufaelliges Tier aus
+    - du kannst selbst Tiernamen aus unserer Liste angeben
+    - die Tiernamen müssen mit einem Komma getrennt werden
+    - z.B. randomAnimal Tiger,Schwein,Huhn
+    
+    helpAnimal
+    - zeigt eine Liste unserer gewaehlten Tiere an
+   
+"""
