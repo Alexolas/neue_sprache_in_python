@@ -1,7 +1,8 @@
-import os, sys
+from parser_1 import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -16,6 +17,9 @@ class MainWindow(QMainWindow):
     def run(self):
         inhalt_edit1 = self.textedit1.toPlainText()
         self.textedit2.setText(inhalt_edit1)
+        parser = Parser()
+        parser.parse(self.textedit1.toPlainText())
+
 
 
     def createWidget(self):
