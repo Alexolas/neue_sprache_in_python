@@ -8,7 +8,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Titel")
+        self.setWindowTitle("Neue Sprache")
+        self.resize(1024, 512)
         self.createWidget()
         self.createActions()
         self.createMenuBar()
@@ -18,7 +19,13 @@ class MainWindow(QMainWindow):
         inhalt_edit1 = self.textedit1.toPlainText()
         self.textedit2.setText(inhalt_edit1)
         parser = Parser()
-        parser.parse(self.textedit1.toPlainText())
+        success = parser.parse(self.textedit1.toPlainText())
+        print(success)
+        if parser._messages != []:
+            self.textedit2.setPlainText("Message erhalten")
+            self.textedit2.setPlainText(''.join(parser._messages))
+        else:
+            self.textedit2.setPlainText("Error")
 
 
 
