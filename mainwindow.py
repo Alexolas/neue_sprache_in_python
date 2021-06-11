@@ -20,7 +20,6 @@ class MainWindow(QMainWindow):
         self.textedit2.setText(inhalt_edit1)
         parser = Parser()
         success = parser.parse(self.textedit1.toPlainText())
-        print(success)
         if parser._messages != []:
             self.textedit2.setPlainText("Message erhalten")
             self.textedit2.setPlainText(''.join(parser._messages))
