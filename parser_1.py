@@ -36,7 +36,7 @@ class Parser:
                     e = random.choice(list.split(","))
                     self._messages.append(e.strip() + "\n")
             else:
-                self._messages.append("Du hast mindestens einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.")
+                self._messages.append("Du hast wahrscheinlich einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.")
                 return False
         return True
 
@@ -48,9 +48,10 @@ list_animals = ['Alpaka','Esel','Hase','Hund','Katze','Krokodil','Kuh','Löwe',
 
 help_text = """say\n- fast gleiche Aufgabe wie print("") in Python 
 - gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
- alle Zeichen)\n- z.B.say Hallo09\n\nmake(=def)\n
-randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.randomAnimal
+ alle Zeichen)\n- z.B.\n<say Hallo09\n\nmake\n- erstellt eine Variable\n- make Variablenname = Name/Wert\n
+ - z.B. \n<make Wort = Baum\n<Wort\n
+randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal
 \nrandomAnimal Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
 aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
-einem Komma getrennt werden\n- z.B.randomAnimal Tiger, Schwein, Huhn\n\nlistAnimals
+einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n\nlistAnimals
 - zeigt eine Liste unserer gewaehlten Tiere an\n\n"""

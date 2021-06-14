@@ -16,12 +16,11 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def run(self):
-        inhalt_edit1 = self.textedit1.toPlainText()
-        self.textedit2.setText(inhalt_edit1)
         parser = Parser()
         success = parser.parse(self.textedit1.toPlainText())
+        if not success:
+            QMessageBox.critical(self, "Fehler", "Du hast keinen gültigen Befehl angegeben.")
         if parser._messages != []:
-            self.textedit2.setPlainText("Message erhalten")
             self.textedit2.setPlainText(''.join(parser._messages))
         else:
             self.textedit2.setPlainText("Error")
@@ -117,3 +116,5 @@ class MainWindow(QMainWindow):
     def clear(self):
         if self.textedit1.toPlainText() == '':
             self.textedit2.clear()
+
+# icons
