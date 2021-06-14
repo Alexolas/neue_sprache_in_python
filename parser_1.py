@@ -22,20 +22,26 @@ class Parser:
                 if len(zeile.rstrip()) == 12:
                     self._messages.append(random.choice(list_animals))
                 else:
+                    if "," not in zeile:
+                        self._messages.append("Die Tiernamen werden durch Kommata getrennt.")
+                        return False
                     if zeile.startswith("randomAnimal"):
                         list = ''.join(zeile.split("randomAnimal "))
                     else:
                         list = ''.join(zeile.split("randomanimal "))
-
+                    for t in list.split(","):
+                        if t.strip() not in list_animals:
+                            self._messages.append("Mindestens ein Tiername existiert nicht. Wähle zwischen:\n- " + '\n- '.join(list_animals))
+                            return False
                     e = random.choice(list.split(","))
-                    self._messages.append(e + "\n")
+                    self._messages.append(e.strip() + "\n")
             else:
                 self._messages.append("Du hast mindestens einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.")
                 return False
         return True
 
-# randomAnimal Alpaka,Hase,Tiger,Schwein,Jerry
-# Ausgabe: Hase
+# randomAnimal Alpaka,Hase,Tiger,Schwein
+# Ausgabe vielleicht: Hase
 
 list_animals = ['Alpaka','Esel','Hase','Hund','Katze','Krokodil','Kuh','Löwe',
 'Panda','Salamander','Schaf','Schwein','Tiger']
