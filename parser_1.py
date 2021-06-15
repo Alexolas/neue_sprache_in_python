@@ -5,6 +5,8 @@ class Parser:
         self._messages = []
 
     def parse(self, code):
+        list_animals = ['Alpaka', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
+                        'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
         variable = ""
         wert = ""
         for zeile in code.split("\n"):
@@ -21,7 +23,7 @@ class Parser:
                 self._messages.append(help_text)
             elif zeile.startswith("say "):
                 said_text = zeile[3:len(zeile)]
-                if said_text.strip() == variable:
+                if said_text.strip() == "$" + variable:
                     self._messages.append(wert + "\n")
                 else:
                     self._messages.append(said_text.strip()+"\n")
@@ -38,8 +40,6 @@ class Parser:
                         self._messages.append("Die Tiernamen werden durch Kommata getrennt.")
                         return False
                     if zeile.startswith("randomAnimal"):
-                        list_animals = ['Alpaka', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
-                                        'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
                         list = ''.join(zeile.split("randomAnimal "))
                     else:
                         list = ''.join(zeile.split("randomanimal "))
@@ -55,8 +55,8 @@ class Parser:
                     variable = variable_und_wert.split("=")[0].strip()
                     wert = variable_und_wert.split("=")[1].strip()
                     self._messages.append("Variable '" + variable + "' mit dem Wert '" + wert + "' angenommen.\n")
-            elif zeile.startswith(variable):
-                self._messages.append(wert)
+            elif zeile.startswith("$" + variable):
+                self._messages.append(wert + "\n")
             else:
                 self._messages.append("Du hast wahrscheinlich einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.\n")
                 return False
