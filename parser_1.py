@@ -5,14 +5,26 @@ class Parser:
         self._messages = []
 
     def parse(self, code):
+        variable = ""
+        wert = ""
         for zeile in code.split("\n"):
-
-
             if zeile.startswith("help") and len(zeile.rstrip()) < 5:
+                help_text = """say\n- fast gleiche Aufgabe wie print("") in Python 
+                - gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
+                 alle Zeichen)\n- z.B.\n<say Hallo09\n\nmake\n- erstellt eine Variable\n- make Variablenname = Name/Wert\n
+                 - z.B. \n<make Wort = Baum\n<Wort\n
+                randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal
+                \nrandomAnimal Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
+                aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
+                einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n\nlistAnimals
+                - zeigt eine Liste unserer gewaehlten Tiere an\nz.B.\n<listAnimals\n\n"""
                 self._messages.append(help_text)
             elif zeile.startswith("say "):
                 said_text = zeile[3:len(zeile)]
-                self._messages.append(said_text.lstrip()+"\n")
+                if said_text.strip() == variable:
+                    self._messages.append(wert + "\n")
+                else:
+                    self._messages.append(said_text.strip()+"\n")
             elif zeile.startswith("listanimals") or zeile.startswith("listAnimals") and len(zeile.rstrip()) == 11:
                 self._messages.append("Liste:")
                 for l in list_animals:
@@ -26,32 +38,26 @@ class Parser:
                         self._messages.append("Die Tiernamen werden durch Kommata getrennt.")
                         return False
                     if zeile.startswith("randomAnimal"):
+                        list_animals = ['Alpaka', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
+                                        'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
                         list = ''.join(zeile.split("randomAnimal "))
                     else:
                         list = ''.join(zeile.split("randomanimal "))
                     for t in list.split(","):
                         if t.strip() not in list_animals:
-                            self._messages.append("Mindestens ein Tiername existiert nicht. Wähle zwischen:\n- " + '\n- '.join(list_animals))
+                            self._messages.append("Ein oder mehrere Tiernamen existieren nicht. Wähle zwischen:\n- " + '\n- '.join(list_animals))
                             return False
                     e = random.choice(list.split(","))
                     self._messages.append(e.strip() + "\n")
+            elif zeile.startswith("make"):
+                variable_und_wert = ''.join(zeile.split("make "))
+                if "=" in zeile:
+                    variable = variable_und_wert.split("=")[0].strip()
+                    wert = variable_und_wert.split("=")[1].strip()
+                    self._messages.append("Variable '" + variable + "' mit dem Wert '" + wert + "' angenommen.\n")
+            elif zeile.startswith(variable):
+                self._messages.append(wert)
             else:
-                self._messages.append("Du hast wahrscheinlich einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.")
+                self._messages.append("Du hast wahrscheinlich einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.\n")
                 return False
         return True
-
-# randomAnimal Alpaka,Hase,Tiger,Schwein
-# Ausgabe vielleicht: Hase
-
-list_animals = ['Alpaka','Esel','Hase','Hund','Katze','Krokodil','Kuh','Löwe',
-'Panda','Salamander','Schaf','Schwein','Tiger']
-
-help_text = """say\n- fast gleiche Aufgabe wie print("") in Python 
-- gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
- alle Zeichen)\n- z.B.\n<say Hallo09\n\nmake\n- erstellt eine Variable\n- make Variablenname = Name/Wert\n
- - z.B. \n<make Wort = Baum\n<Wort\n
-randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal
-\nrandomAnimal Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
-aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
-einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n\nlistAnimals
-- zeigt eine Liste unserer gewaehlten Tiere an\n\n"""
