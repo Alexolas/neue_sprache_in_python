@@ -1,21 +1,30 @@
-import os, sys
+from parser_1 import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Titel")
+        self.setWindowTitle("Neue Sprache")
+        self.resize(1024, 512)
         self.createWidget()
         self.createActions()
         self.createMenuBar()
 
     @Slot()
     def run(self):
-        inhalt_edit1 = self.textedit1.toPlainText()
-        self.textedit2.setText(inhalt_edit1)
+        parser = Parser()
+        success = parser.parse(self.textedit1.toPlainText())
+        if not success:
+            QMessageBox.critical(self, "Fehler", "Du hast keinen gültigen Befehl angegeben.")
+        if parser._messages != []:
+            self.textedit2.setPlainText(''.join(parser._messages))
+        else:
+            self.textedit2.setPlainText("Error")
+
 
 
     def createWidget(self):
@@ -108,30 +117,4 @@ class MainWindow(QMainWindow):
         if self.textedit1.toPlainText() == '':
             self.textedit2.clear()
 
-"""
-    help
-    - zeigt die Hilfe und die aktuelle Version an
-    
-    say
-    - gleiche Aufgabe wie print("") in Python
-    - gibt einzelne Wörter aus
-    - gibt folgende Zeichen wieder (a-z, A-Z, 0-9, alle Zeichen außer Leerzeichen)
-    - wenn ein Leerzeichen benutzt wird, werden alle darauffolgenden Zeichen ignoriert
-    - z.B. say Hallo09
-    
-    make (=def)
-    
-    randomAnimal
-    - wählt ein zufaelliges Tier aus unserer Liste aus
-    - z.B. randomAnimal
-    
-    randomAnimal Tiername1,Tiername2,Tiername3,...
-    - wählt ein zufaelliges Tier aus
-    - du kannst selbst Tiernamen aus unserer Liste angeben
-    - die Tiernamen müssen mit einem Komma getrennt werden
-    - z.B. randomAnimal Tiger,Schwein,Huhn
-    
-    helpAnimal
-    - zeigt eine Liste unserer gewaehlten Tiere an
-   
-"""
+# icons
