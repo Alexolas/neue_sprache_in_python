@@ -7,14 +7,13 @@ class Parser:
     def parse(self, code):
         list_animals = ['Alpaka', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
                         'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
-        variable = ""
-        wert = ""
+        variablen = {}
         for zeile in code.split("\n"):
             if zeile.startswith("help") and len(zeile.rstrip()) < 5:
                 help_text = """say\n- fast gleiche Aufgabe wie print("") in Python 
                 - gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
                  alle Zeichen)\n- z.B.\n<say Hallo09\n\nmake\n- erstellt eine Variable\n- make Variablenname = Name/Wert\n
-                 - z.B. \n<make Wort = Baum\n<Wort\n
+                 - z.B. \n<make Wort = Baum\n<$Wort\n
                 randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal
                 \nrandomAnimal Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
                 aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
@@ -54,10 +53,18 @@ class Parser:
                 if "=" in zeile:
                     variable = variable_und_wert.split("=")[0].strip()
                     wert = variable_und_wert.split("=")[1].strip()
+                    variablen[variable] = wert
                     self._messages.append("Variable '" + variable + "' mit dem Wert '" + wert + "' angenommen.\n")
-            elif zeile.startswith("$" + variable):
-                self._messages.append(wert + "\n")
+                else:
+                    return False
+            elif zeile.startswith("$"):
+                var_name = zeile[1:len(zeile.strip())]
+                if var_name in variablen:
+                    self._messages.append(variablen[var_name] + "\n")
+                else:
+                    self._messages.append("Diese Variable existiert nicht.\n")
             else:
                 self._messages.append("Du hast wahrscheinlich einen Befehl falsch eingegeben. Versuche es mit 'help' für die Liste der Befehle.\n")
                 return False
         return True
+
