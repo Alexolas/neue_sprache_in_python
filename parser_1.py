@@ -1,7 +1,6 @@
 import random
 class Parser:
     def __init__(self):
-
         self._messages = []
 
     def parse(self, code):

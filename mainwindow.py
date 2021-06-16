@@ -1,4 +1,5 @@
 from parser_1 import *
+from highlighter import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
@@ -42,6 +43,7 @@ class MainWindow(QMainWindow):
         layout1.addLayout(layout2)
         self.textedit1.textChanged.connect(self.clear)
         layout2.addWidget(self.textedit1, 1, 0)
+        self.highlighter = Highlighter(self.textedit1.document())
 
         self.textedit2 = QTextEdit()
         self.textedit2.setReadOnly(True)
@@ -120,5 +122,3 @@ class MainWindow(QMainWindow):
     def clear(self):
         if self.textedit1.toPlainText() == '':
             self.textedit2.clear()
-
-# icons
