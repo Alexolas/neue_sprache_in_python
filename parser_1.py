@@ -12,7 +12,7 @@ class Parser:
                 help_text = """say, s\n- fast gleiche Aufgabe wie print("") in Python 
 - gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
 alle Zeichen)\n- z.B.\n<say Hallo09\n<\n<\n\nmake, mk\n- erstellt eine Variable\n- make Variablenname = Name/Wert
-- benötigt ein $ am Anfang zum aufzurufen\n- z.B. \n<make Wort = Baum\n<$Wort\n<\n<\n
+- benötigt ein $ am Anfang zum Aufzurufen\n- z.B. \n<make Wort = Baum\n<$Wort\n<\n<\n
 randomAnimal, ra\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal\n<\n<
 \nrandomAnimal, ra Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
 aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
