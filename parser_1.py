@@ -10,15 +10,15 @@ class Parser:
         variablen = {}
         for zeile in code.split("\n"):
             if zeile.startswith("help") and len(zeile.rstrip()) < 5:
-                help_text = """say\n- fast gleiche Aufgabe wie print("") in Python 
-                - gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
-                 alle Zeichen)\n- z.B.\n<say Hallo09\n\nmake\n- erstellt eine Variable\n- make Variablenname = Name/Wert\n
-                 - z.B. \n<make Wort = Baum\n<$Wort\n
-                randomAnimal\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal
-                \nrandomAnimal Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
-                aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
-                einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n\nlistAnimals
-                - zeigt eine Liste unserer gewaehlten Tiere an\nz.B.\n<listAnimals\n\n"""
+                help_text = """say, s\n- fast gleiche Aufgabe wie print("") in Python 
+- gibt durch Leerzeichen zu trennende Wörter aus\n- gibt folgende Zeichen wieder(a - z, A - Z, 0 - 9, alle
+alle Zeichen)\n- z.B.\n<say Hallo09\n<\n<\n\nmake, mk\n- erstellt eine Variable\n- make Variablenname = Name/Wert
+- benötigt ein $ am Anfang zum aufzurufen\n- z.B. \n<make Wort = Baum\n<$Wort\n<\n<\n
+randomAnimal, ra\n- wählt ein zufaelliges Tier aus unserer Liste aus\n- z.B.\n<randomAnimal\n<\n<
+\nrandomAnimal, ra Tiername1,Tiername2,Tiername3,...\n- wählt ein zufaelliges Tier
+aus\n- du kannst selbst Tiernamen aus unserer Liste angeben\n- die Tiernamen müssen mit
+einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n<\n<\n\nlistAnimals, la
+- zeigt eine Liste unserer gewaehlten Tiere an\nz.B.\n<listAnimals\n<\n<\n\n"""
                 self._messages.append(help_text)
             elif zeile.startswith("say ") or zeile.startswith("s "):
                 if zeile.startswith("s "):

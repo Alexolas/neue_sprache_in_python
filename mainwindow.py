@@ -2,7 +2,8 @@ from parser_1 import *
 from PySide6.QtWidgets import *
 from PySide6.QtCore import *
 from PySide6.QtGui import *
-
+from PySide6.QtSvg import *
+import os
 
 class MainWindow(QMainWindow):
     def __init__(self):
@@ -64,28 +65,31 @@ class MainWindow(QMainWindow):
         self._help_menu.addAction(self._about_qt_act)
 
     def createActions(self):
-        self._exit_act = QAction("E&xit", self, shortcut="Ctrl+Q",
+        icon_path_exit = os.path.join(os.path.dirname(__file__), 'Icons\exit.svg')
+        self._exit_act = QAction(QIcon(icon_path_exit), "E&xit", self, shortcut="Ctrl+Q",
                 statusTip="Exit the application", triggered=self.close)
 
-        self._about_qt_act = QAction(text="About &Qt", parent=self,
+        icon_path_qt = os.path.join(os.path.dirname(__file__), 'Icons\qtlogo.svg')
+        self._about_qt_act = QAction(icon=QIcon(icon_path_qt), text="About &Qt", parent=self,
                 statusTip="Show the Qt library's About box",
                 triggered=qApp.aboutQt)
 
-        self._about_act = QAction("&About", self,
+        icon_path_about = os.path.join(os.path.dirname(__file__), 'Icons\question.svg')
+        self._about_act = QAction(QIcon(icon_path_about), "&About", self,
                 statusTip="Show the Qt library's About box",
                 triggered=self.about)
 
-        icon = QIcon.fromTheme("document-new", QIcon(':/images/new.png'))
-        self._new_act = QAction("&New", self, shortcut=QKeySequence.New,
+        icon_path_new = os.path.join(os.path.dirname(__file__), 'Icons\\new.svg')
+        self._new_act = QAction(QIcon(icon_path_new), "&New", self, shortcut=QKeySequence.New,
                 statusTip="Create a new file", triggered=self.new)
 
-        icon = QIcon.fromTheme("document-open", QIcon(':/images/open.png'))
-        self._open_act = QAction("&Open...", self,
+        icon_path_open = os.path.join(os.path.dirname(__file__), 'Icons\open.svg')
+        self._open_act = QAction(QIcon(icon_path_open), "&Open...", self,
                 shortcut=QKeySequence.Open, statusTip="Open an existing file",
                 triggered=self.open)
 
-        icon = QIcon.fromTheme("document-save", QIcon(':/images/save.png'))
-        self._save_act = QAction("&Save", self,
+        icon_path_save = os.path.join(os.path.dirname(__file__), 'Icons\save.svg')
+        self._save_act = QAction(QIcon(icon_path_save), "&Save", self,
                 shortcut=QKeySequence.Save,
                 statusTip="Save the document to disk", triggered=self.save)
 
