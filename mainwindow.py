@@ -9,6 +9,8 @@ import os
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+        self.listanimals = ['Alpaka', 'Elefant', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
+        'Maus', 'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
 
         self.setWindowTitle("Neue Sprache")
         self.resize(1024, 512)
@@ -19,6 +21,7 @@ class MainWindow(QMainWindow):
     @Slot()
     def run(self):
         parser = Parser()
+        parser.list_animals = self.listanimals
         success = parser.parse(self.textedit1.toPlainText())
         if not success:
             QMessageBox.critical(self, "Fehler", "Du hast keinen gültigen Befehl angegeben.")
@@ -44,6 +47,7 @@ class MainWindow(QMainWindow):
         self.textedit1.textChanged.connect(self.clear)
         layout2.addWidget(self.textedit1, 1, 0)
         self.highlighter = Highlighter(self.textedit1.document())
+        self.highlighter.listanimals = self.listanimals
 
         self.textedit2 = QTextEdit()
         self.textedit2.setReadOnly(True)

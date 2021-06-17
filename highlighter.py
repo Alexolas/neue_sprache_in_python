@@ -6,6 +6,7 @@ class Highlighter(QSyntaxHighlighter):
     def __init__(self, parent: QObject):
         super().__init__(parent)
         self.var = {}
+        self.listanimals = []
 
     def highlightBlock(self, text):
         text_format1 = QTextCharFormat()
@@ -32,7 +33,14 @@ class Highlighter(QSyntaxHighlighter):
         if text.startswith("randomAnimal") or text.startswith("randomanimal") or text.startswith("ra"):
             if text.startswith("randomAnimal") or text.startswith("randomanimal"):
                 self.setFormat(0, 12, text_format1)
-                self.setFormat(13, len(text), text_format2)
+                animals = text[13:len(text)].split(",")
+                for x in animals:
+                    pos_animal = text.index(x)
+                    pos_komma = text.find(",", pos_animal)
+                    if pos_komma != -1:
+                        self.setFormat(pos_komma, 1, text_format3)
+                    if x in self.listanimals:
+                        self.setFormat(text.index(x), len(x), text_format2)
             elif not text.startswith("ra ") and len(text.rstrip()) == 2:
                 self.setFormat(0, 2, text_format1)
             elif text.startswith("ra "):

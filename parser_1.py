@@ -2,10 +2,9 @@ import random
 class Parser:
     def __init__(self):
         self._messages = []
+        self.list_animals = []
 
     def parse(self, code):
-        list_animals = ['Alpaka', 'Elefant', 'Esel', 'Hase', 'Hund', 'Katze', 'Krokodil', 'Kuh', 'Löwe',
-                        'Maus', 'Panda', 'Salamander', 'Schaf', 'Schwein', 'Tiger']
         variablen = {}
         for zeile in code.split("\n"):
             if zeile.startswith("help") and len(zeile.rstrip()) < 5:
@@ -32,12 +31,12 @@ einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n<\n<\n\
                     self._messages.append(said_text.strip()+"\n")
             elif zeile.startswith("listanimals") or zeile.startswith("listAnimals") or zeile.startswith("la"):
                 self._messages.append("Liste:")
-                for l in list_animals:
+                for l in self.list_animals:
                     self._messages.append("\n- " + l)
                 self._messages.append("\n\n")
             elif zeile.startswith("randomAnimal") or zeile.startswith("randomanimal") or zeile.startswith("ra"):
                 if len(zeile.rstrip()) == 12 or len(zeile.rstrip()) == 2:
-                    self._messages.append(random.choice(list_animals))
+                    self._messages.append(random.choice(self.list_animals))
                 else:
                     if "," not in zeile:
                         self._messages.append("Die Tiernamen werden durch Kommata getrennt.")
@@ -49,8 +48,8 @@ einem Komma getrennt werden\n- z.B.\n<randomAnimal Tiger, Schwein, Huhn\n<\n<\n\
                     else:
                         list = ''.join(zeile.split("randomanimal "))
                     for t in list.split(","):
-                        if t.strip() not in list_animals:
-                            self._messages.append("Ein oder mehrere Tiernamen existieren nicht. Wähle zwischen:\n- " + '\n- '.join(list_animals))
+                        if t.strip() not in self.list_animals:
+                            self._messages.append("Ein oder mehrere Tiernamen existieren nicht. Wähle zwischen:\n- " + '\n- '.join(self.list_animals))
                             return False
                     e = random.choice(list.split(","))
                     self._messages.append(e.strip() + "\n")
