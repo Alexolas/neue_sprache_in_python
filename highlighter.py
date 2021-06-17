@@ -31,21 +31,7 @@ class Highlighter(QSyntaxHighlighter):
                 self.setFormat(0, 3, text_format1)
                 self.setFormat(4, len(text), text_format2)
         if text.startswith("randomAnimal") or text.startswith("randomanimal") or text.startswith("ra"):
-            if text.startswith("randomAnimal") or text.startswith("randomanimal"):
-                self.setFormat(0, 12, text_format1)
-                animals = text[13:len(text)].split(",")
-                for x in animals:
-                    pos_animal = text.index(x)
-                    pos_komma = text.find(",", pos_animal)
-                    if pos_komma != -1:
-                        self.setFormat(pos_komma, 1, text_format3)
-                    if x in self.listanimals:
-                        self.setFormat(text.index(x), len(x), text_format2)
-            elif not text.startswith("ra ") and len(text.rstrip()) == 2:
-                self.setFormat(0, 2, text_format1)
-            elif text.startswith("ra "):
-                self.setFormat(0, 2, text_format1)
-                self.setFormat(3, len(text), text_format2)
+            self.process_randomAnimal(text, text_format1, text_format2, text_format3)
         if text.startswith("listAnimals") or text.startswith("listanimals") or text.startswith("la") and len(text.rstrip()) < 12:
             if text.startswith("la") and len(text.rstrip()) == 2:
                 self.setFormat(0, 2, text_format1)
@@ -77,3 +63,27 @@ class Highlighter(QSyntaxHighlighter):
             v_name = text[1:len(text.strip())]
             if v_name in self.var:
                 self.setFormat(1, len(text), text_format2)
+
+
+    def process_randomAnimal(self, text, text_format1, text_format2, text_format3):
+        if text.startswith("randomAnimal") or text.startswith("randomanimal"):
+            self.setFormat(0, 12, text_format1)
+            animals = text[13:len(text)].split(",")
+            self.animal_func(animals, text, text_format2, text_format3)
+        elif not text.startswith("ra ") and len(text.rstrip()) == 2:
+            self.setFormat(0, 2, text_format1)
+        elif text.startswith("ra "):
+            self.setFormat(0, 2, text_format1)
+            animals = text[2:len(text)].split(",")
+            self.animal_func(animals, text, text_format2, text_format3)
+            print(animals)
+
+    def animal_func(self, animals, text, text_format2, text_format3):
+        for x in animals:
+            xs = x.strip()
+            pos_animal = text.index(xs)
+            pos_komma = text.find(",", pos_animal)
+            if pos_komma != -1:
+                self.setFormat(pos_komma, 1, text_format3)
+            if xs in self.listanimals:
+                self.setFormat(text.index(xs), len(xs), text_format2)
